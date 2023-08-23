@@ -6,6 +6,15 @@
   <a href="https://github.com/mjkim1019">
     <img src="https://avatars.githubusercontent.com/u/50831854?v=4" width="80" style="max-width:100%;">
   </a>
+  <a href="https://github.com/leehyewon0531">
+    <img src="https://avatars.githubusercontent.com/u/50830078?v=4" width="80" style="max-width:100%;">
+  </a>
+  <a href="https://github.com/hyeonseop2080">
+    <img src="https://avatars.githubusercontent.com/u/100904828?v=4" width="80" style="max-width:100%;">
+  </a>
+  <a href="https://github.com/sms1375">
+    <img src="https://avatars.githubusercontent.com/u/102645960?v=4" width="80" style="max-width:100%;">
+  </a>
 </div>
 
 ### 🔥 진행 목표
