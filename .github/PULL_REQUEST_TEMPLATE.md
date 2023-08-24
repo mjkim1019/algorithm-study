@@ -1,11 +1,19 @@
-## PR Summary
+### PR Summary
 <!-- PR 내용을 간략하게 소개해주세요 -->
-### 문제 번호/Title
+**📌 문제 번호/Title**
+- 알고리즘/자료구조 종류
+- 인사이트
 
-### 문제 번호/Title
+**📌 문제 번호/Title**
+- 알고리즘/자료구조 종류
+- 인사이트
 
-
-## ISSUE NUMBER
+### Issue Number
 <!-- 이슈 번호를 입력해주세요 -->
 - #0
 - #0
+
+### Check
+- [ ] 언어 label 등록했나요? 
+- [ ] Reviewer 1명 등록했나요?
+- [ ] Reviewer로부터 리뷰 받았나요? 
