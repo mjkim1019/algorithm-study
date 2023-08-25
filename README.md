@@ -15,6 +15,9 @@
   <a href="https://github.com/sms1375">
     <img src="https://avatars.githubusercontent.com/u/102645960?v=4" width="80" style="max-width:100%;">
   </a>
+  <a href="https://github.com/HeaRyeong">
+    <img src= "https://avatars.githubusercontent.com/u/47558214?v=4" width="80" style="max-width:100%;">
+  </a>
 </div>
 
 ### 🔥 진행 목표
@@ -52,9 +55,11 @@ ex) Update 포켓몬 minju.cpp
 3. PR을 보낸 후, code review를 기다립니다.
    - PR 제목은 [0주차] Github이름 제출로 합니다. ex) `[1주차] mjkim 제출`
    - PR 내용은 템플릿에 맞게 작성합니다. (PR Summary, Issue Number)
+   - Reviewers에 1명을 지정하고, Labels에 언어를 지정합니다.
 4. code review가 승인되면 merge 합니다.
 
 ### 📚 문제집
+✏️ [바킹독의 알고리즘 문제집](https://github.com/encrypted-def/basic-algo-lecture/blob/master/workbook.md)
 
 ----
 위 repository는 다음과 같은 레포를 참고해서 만들었습니다 :) </br>
