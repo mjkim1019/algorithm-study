@@ -1,64 +1,22 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
 using namespace std;
-#define FALSE "FALSE"
 
-int V;
-string X;
-int N;
-
-vector<string> per(vector<char> v)
+bool is_vampire(int V)
 {
-    vector<string> res = {};
-
-    do
+    string origin = to_string(V);
+    sort(origin.begin(), origin.end());
+    string vampire = "";
+    for (int i = 2; i * i <= V; i++)
     {
-        string s = "";
-        if (v[0] == '0') continue;
-        for (auto &e : v) s += e;
-        if (V % stoi(s) != 0) continue;
-        res.push_back(s);
+        if (V % i != 0) continue;
 
-    } while (next_permutation(v.begin(), v.end()));
+        vampire = to_string(i) + to_string(V / i);
+        sort(vampire.begin(), vampire.end());
 
-    return res;
-}
-
-string select(int n)
-{
-    vector<int> brute(N, 1);
-    fill(brute.begin(), brute.begin() + n, 0);
-
-    // 숫자 선택
-    do
-    {
-        vector<char> v1;
-        vector<char> v2;
-
-        for (int i = 0; i < N; i++)
-        {
-            if (brute[i] == 0)
-                v1.push_back(X[i]);
-            else
-                v2.push_back(X[i]);
-        }
-
-        vector<string> g1 = per(v1);
-        vector<string> g2 = per(v2);
-
-        int a, b;
-        for (string e1 : g1)
-        {
-            a = stoi(e1);
-            b = V/a;
-
-            if (binary_search(g2.begin(), g2.end(), to_string(b))) return X;
-        }
-
-    } while (next_permutation(brute.begin(), brute.end()));
-
-    return FALSE;
+        if (origin == vampire) return true;
+    }
+    return false;
 }
 
 int main()
@@ -68,25 +26,11 @@ int main()
 
     while (true)
     {
-        cin >> V;
-        if (V == 0) break;
-        bool found = false;
-        while (!found)
-        {
-            X = to_string(V);
-            N = X.size();
-            for (int i = 1; i <= N / 2; i++)
-            {
-                string res = select(i);
-                if (res == FALSE)
-                    continue;
-                cout << res << '\n';
-                found = true;
-                break;
-            }
-
-            if (!found) V++;
-        }
+        int X;
+        cin >> X;
+        if (X == 0) break;
+        while (!is_vampire(X)) X++;
+        cout << X << '\n';
     }
 
     return 0;
