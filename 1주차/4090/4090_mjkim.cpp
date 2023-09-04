@@ -4,6 +4,7 @@
 using namespace std;
 #define FALSE "FALSE"
 
+int V;
 string X;
 int N;
 
@@ -15,8 +16,8 @@ vector<string> per(vector<char> v)
     {
         string s = "";
         if (v[0] == '0') continue;
-        for (auto &e : v)
-            s += e;
+        for (auto &e : v) s += e;
+        if (V % stoi(s) != 0) continue;
         res.push_back(s);
 
     } while (next_permutation(v.begin(), v.end()));
@@ -50,13 +51,9 @@ string select(int n)
         for (string e1 : g1)
         {
             a = stoi(e1);
-            for (string e2 : g2)
-            {
-                b = stoi(e2);
+            b = V/a;
 
-                if (a * b == stoi(X))
-                    return X;
-            }
+            if (binary_search(g2.begin(), g2.end(), to_string(b))) return X;
         }
 
     } while (next_permutation(brute.begin(), brute.end()));
@@ -69,26 +66,27 @@ int main()
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    while (true){
-    int V;
-    cin >> V;
-    if (V == 0) break;
-    bool found = false;
-    while (!found)
+    while (true)
     {
-        X = to_string(V);
-        N = X.size();
-        for (int i = 1; i <= N / 2; i++)
+        cin >> V;
+        if (V == 0) break;
+        bool found = false;
+        while (!found)
         {
-            string res = select(i);
-            if (res == FALSE) continue;
-            cout << res << '\n';
-            found = true;
-            break;
-        }
+            X = to_string(V);
+            N = X.size();
+            for (int i = 1; i <= N / 2; i++)
+            {
+                string res = select(i);
+                if (res == FALSE)
+                    continue;
+                cout << res << '\n';
+                found = true;
+                break;
+            }
 
-        if (!found) V++;
-    }
+            if (!found) V++;
+        }
     }
 
     return 0;
