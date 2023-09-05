@@ -44,9 +44,7 @@ int main(){
         }
         sort(arr.begin(), arr.end());
         party[i] = arr;
-        //cout << "n = " << n << '\n';
         for (int i=1; i<n; i++){
-            //cout << arr[0] << " 비교  " << arr[i] <<'\n';
             merge_group(arr[0], arr[i]);
         }
     }
