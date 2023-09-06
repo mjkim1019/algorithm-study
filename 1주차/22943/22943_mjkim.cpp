@@ -34,6 +34,7 @@ int main(){
 
     // 2. 소수 찾기
     sort(arr.begin(), arr.end());
+
     prime[0] = false; prime[1] = false;
     for (int i=2; i*i <= arr.back(); i++){
         if (prime[i] == false) continue;
@@ -41,21 +42,16 @@ int main(){
             prime[i*j] = false;
         }
     }
-
     vector<int> prime_num;
     for (int i=2; i<= arr.back(); i++){
         if (prime[i]) prime_num.push_back(i); // 정렬된 상태로 들어감
     }
 
     // 3. 조건 1
-    for (int &n: arr){
-        for (int &p: prime_num){
-            if (n-p <= 0) break;
-
-            if (binary_search(prime_num.begin(), prime_num.end(), n-p)) {
-                if (n-p != p) res[n] = true;
-                break;
-            }
+    for (int i=0; i<prime_num.size()-1; i++){
+        for (int j=i+1; j<prime_num.size(); j++){
+            int num = prime_num[i] + prime_num[j];
+            if (binary_search(arr.begin(), arr.end(), num)) res[num] = true;
         }
     }
 
@@ -64,6 +60,7 @@ int main(){
         int tmp = n;
         while (tmp%M == 0) tmp /= M;
         for (int &p: prime_num) {
+            if (tmp <= p) break;
             if (tmp % p != 0) continue;
             if (binary_search(prime_num.begin(), prime_num.end(), tmp/p)){
                 if (res[n]) answer++;
