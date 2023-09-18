@@ -5,11 +5,18 @@ using namespace std;
 
 int N;
 
-vector<bool> prime(1000000000, true);
+bool is_prime(int num){
+    if (num<2) return false;
+    
+    for (int i=2; i*i <= num; i++){
+        if (num % i == 0) return false;
+    }
+    return true;
+}
 
 void dfs(int L, string num){
     if (L == N){
-        if (prime[stoi(num)])
+        if (is_prime(stoi(num)))
             cout << num << '\n';
         return;
     }
@@ -17,7 +24,7 @@ void dfs(int L, string num){
     for (int i=0; i<=9; i++){
         if (L==0 && i==0) continue;
         string str = num + to_string(i);
-        if (prime[stoi(str)]) dfs(L+1, str);
+        if (is_prime(stoi(str))) dfs(L+1, str);
     }
 }
 
@@ -26,14 +33,6 @@ int main(){
     cin.tie(0);
 
     cin >> N;
-
-    prime[0] = false; prime[1] = false;
-    for (int i=2; i*i<pow(10, N); i++){
-        if (prime[i] == false) continue;
-        for (int j=2; i*j<pow(10, N); j++){
-            prime[i*j] = false;
-        }
-    }
     
     dfs(0, "");
     
