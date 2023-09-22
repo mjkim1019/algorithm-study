@@ -1,12 +1,28 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
+#define ll long long
 
-bool check(string n){
-    for (int i=1; i<n.size(); i++){
-        if (n[i-1] <= n[i]) return false;
+vector<ll> v;
+
+void dfs(int L, int N, string num){
+    if (L==N){
+       //cout << num << '\n';
+        v.push_back(stoll(num));
+        return;
     }
-    return true;
+
+    for (int i=9; i>=0; i--){
+        if (L==0){
+            if (i != 0) dfs(L+1, N, to_string(i));
+            continue;
+        }
+
+        if (num[L-1] - '0' > i) {
+            dfs(L+1, N, num+to_string(i));
+        }
+    }
 }
 
 int main(){
@@ -16,31 +32,22 @@ int main(){
     int N;
     cin >> N;
 
-    if (N<=10) {
+    if (N<10) {
         cout << N; return 0;
     }
 
-    vector<int> v;
-    for (int i=0; i<=10; i++) v.push_back(i);
-
-    int num = 20;
-    while(v.size() != N){
-        
-        if (check(to_string(num))) {
-            v.push_back(num);
-        }
-        num++;
-
-        if (v.size() == N+1) {
-            cout << v.back(); 
+    for (int i=2; i<=10; i++){ // 자리수
+        dfs(0, i, "");
+        if (v.size() > N-10) {
+            sort(v.begin(), v.end());
+            // for (auto e: v) cout << e << ' ';
+            // cout << '\n';
+            cout << v[N-10];
             return 0;
-        }
-
-        if (num > 9876543210) {
-            cout << "-1"; return 0;
         }
     }
 
+    cout << "-1";
 
     return 0;
 }
