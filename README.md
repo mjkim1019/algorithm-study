@@ -6,17 +6,11 @@
   <a href="https://github.com/mjkim1019">
     <img src="https://avatars.githubusercontent.com/u/50831854?v=4" width="80" style="max-width:100%;">
   </a>
-  <a href="https://github.com/leehyewon0531">
-    <img src="https://avatars.githubusercontent.com/u/50830078?v=4" width="80" style="max-width:100%;">
-  </a>
   <a href="https://github.com/hyeonseop2080">
     <img src="https://avatars.githubusercontent.com/u/100904828?v=4" width="80" style="max-width:100%;">
   </a>
   <a href="https://github.com/sms1375">
     <img src="https://avatars.githubusercontent.com/u/102645960?v=4" width="80" style="max-width:100%;">
-  </a>
-  <a href="https://github.com/HeaRyeong">
-    <img src= "https://avatars.githubusercontent.com/u/47558214?v=4" width="80" style="max-width:100%;">
   </a>
 </div>
 
@@ -51,7 +45,7 @@ ex) Update 포켓몬 minju.cpp
 ### 🍿 문제 제출 방법
 1. repository를 `fork` 후, `clone`합니다. (초기 1회만) 
 / 새로운 주차 폴더가 생겼을 경우 clone이 아닌 `pull` 또는 `fetch`를 진행합니다.
-2. fork한 저장소의 각 주차에 해당되는 과제 폴더에 소스 코드를 `add`, `commit` 후 `push` 합니다. 파일명은 `문제번호_이름.언어`으로 합니다. ex) `14888_mjkim.cpp`
+2. fork한 저장소의 각 주차에 해당되는 과제 폴더에 소스 코드를 `add`, `commit` 후 `push` 합니다. 주차 폴더 안에 문제번호/문제이름 폴더를 만든 후, 파일명은 `문제번호_이름.언어`으로 합니다. ex) `14888_mjkim.cpp`
 3. PR을 보낸 후, code review를 기다립니다.
    - PR 제목은 [0주차] Github이름 제출로 합니다. ex) `[1주차] mjkim 제출`
    - PR 내용은 템플릿에 맞게 작성합니다. (PR Summary, Issue Number)
