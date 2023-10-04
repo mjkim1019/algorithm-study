@@ -15,23 +15,19 @@ int main(){
     for (int i=0; i<N; i++) cin >> v[i];
     sort(v.begin(), v.end());
 
-    for (int i=0; i<v.size(); i++){
-        auto it = lower_bound(v.begin()+i+1, v.end(), -v[i]);
-        if (it != v.end()) {
-            if (mn > abs(v[i] + *it)){
-                mn = abs(v[i] + *it);
-                answer = {*it, v[i]};
-                //cout << v[i] << ' ' << *it << "= " << mn <<'\n';
-            }
-        }
-        
-        if (i+1 != (it-v.begin()) && mn > abs(v[i] + *(--it))){
-            mn = abs(v[i] + *it);
-            answer = {*it, v[i]};
-            //cout << v[i] << ' ' << *it << "= " << mn << '\n';
-        }
-        if (mn == 0) break;
+    // 두 개의 용액 선택 -> 투포인터
+    int l=0, r= v.size()-1; 
+    while (l < r){
+        ll sum = v[l]+v[r]; 
+        if (abs(sum) < mn){ 
+            mn = abs(sum);
+            answer = {v[l], v[r]};
+        } 
+        if (sum == 0) break;
+        else if (sum < 0) l++; // 음수면 값을 크게 만들어주기 위해 -값 작게(숫자 크게)
+        else r--; // 양수면 값을 작게 만들어주기 위해 +값 작게
     }
+
     sort(answer.begin(), answer.end());
     cout << answer[0] << ' ' << answer[1];
 
