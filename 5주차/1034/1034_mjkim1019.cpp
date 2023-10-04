@@ -1,56 +1,37 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
-char board[51][51];
-int N, M;
-int K;
-int answer;
-
-int count(){
-    int res = 0;
-    for (int i=0; i<N; i++){
-        bool is_valid = true;
-        for (int j=0; j<M; j++){
-            if (board[i][j] == '0') {
-                is_valid = false; break;
-            }
-        }
-        if (is_valid) res++;
-    }
-    return res;
-}
-
-void turn(int k){
-    for (int i=0; i<N; i++){
-        if (board[i][k] == '0') board[i][k] = '1';
-        else board[i][k] = '0';
-    }
-}
-
-void dfs(int L){
-    if (L == K){
-        answer = max(answer, count());
-        return;
-    }
-
-    for (int j=0; j<M; j++){
-        turn(j);
-        dfs(L+1);
-        turn(j);
-    }
-}
+string board[51];
 
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
-   
+
+    int answer = 0;
+
+    int N,M;
     cin >> N >> M;
     for (int i=0; i<N; i++)
-        for (int j=0; j<M; j++)
-            cin >> board[i][j];
+        cin >> board[i];
+    
 
+    int K;
     cin >> K;
-    dfs(0);
+
+    for (int i=0; i<N; i++){
+        int cnt = 0;
+        for (int j=0; j<M; j++) {
+            if (board[i][j] == '0') cnt++;
+        }
+        if (cnt > K || cnt %2 != K %2) continue;
+
+        int res = 0;
+        for (int k=i; k<N; k++){
+            if (board[i] == board[k]) res++;
+        }
+        answer = max(answer, res);
+    }
     cout << answer;
 
     return 0;
