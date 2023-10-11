@@ -58,43 +58,37 @@ bool find_square(int n, int x, int y)
 void rotate(int a, int b, int n)
 {
     int tmp[11][11];
-    for (int i = a; i < a + n; i++)
-        for (int j = b; j < b + n; j++)
-            tmp[i][j] = board[i][j];
+    int rot[11][11];
 
-    for (int i = a; i < a + n; i++)
-        for (int j = b; j < b + n; j++)
-            board[i][j] = tmp[n - j + 1 + a+b-2][i+b-a];
-    
-    //cout << "rotate board" << '\n';
-    //print();
+    // 돌릴 부분만 복사
+    for (int i=0; i<n; i++)
+        for (int j=0; j<n; j++)
+            tmp[i][j] = board[i+a][j+b];
 
-    //내구성 감소시키기
-    for (int i = a; i < a + n; i++)
-    {
-        for (int j = b; j < b + n; j++)
-        {
-            if (board[i][j] > 0) board[i][j]--;
+    // 돌리기
+    for (int i=0; i<n; i++)
+        for (int j=0; j<n; j++)
+            rot[i][j] = tmp[n-j-1][i];
+
+    // 붙여넣기 & 내구성 감소시키기
+    for (int i=0; i<n; i++){
+        for (int j=0; j<n; j++){
+            board[i+a][j+b] = rot[i][j];
+            if (board[i+a][j+b] > 0) --board[i + a][j + b]; 
         }
     }
+    
 
     // 좌표 회전!
-
     // 출구
-    // cout << "exit " << '\n';
-    // cout << "rotate 전 : "<< exit_pos.X << ", " << exit_pos.Y << '\n';
     exit_pos = {exit_pos.Y + a-b, n - exit_pos.X + 1 + a+b-2};
-    //cout << "rotate 후 : " << exit_pos.X << ", " << exit_pos.Y << '\n';
 
     // 사람들
     for (auto &p : people)
     {
-        if (p.X == 0 && p.Y == 0)
-            continue;
+        if (p.X == 0 && p.Y == 0) continue;
         if (p.X >= a && p.X < a + n && p.Y >= b && p.Y < b + n)
-        {
             p = {p.Y + a-b, n-p.X+1 + a+b-2};
-        }
     }
 }
 
@@ -102,10 +96,8 @@ bool every_exit()
 {
     for (auto &e : people)
     {
-        if (e.X == 0 && e.Y == 0)
-            continue;
-        else
-            return false;
+        if (e.X == 0 && e.Y == 0) continue;
+        else return false;
     }
     return true;
 }
@@ -118,14 +110,6 @@ void dfs(int L, int sum)
         cout << exit_pos.X << ' ' << exit_pos.Y;
         return;
     }
-
-    // cout << "poeple" << '\n';
-    // for (auto &p : people)
-    // {
-    //     cout << p.X << ' ' << p.Y << '\n';
-    // }
-    // cout << '\n';
-    // cout << "exit_pos = " << exit_pos.X << ", " << exit_pos.Y << '\n'; 
 
     // 1. 이동
     for (auto &p : people)
@@ -158,12 +142,6 @@ void dfs(int L, int sum)
         }
     }
     
-    // cout << "poeple" << '\n';
-    // for (auto &p: people){
-    //     cout << p.X <<' ' <<  p.Y << '\n';
-    // }
-    // cout << "sum = " << sum <<'\n';
-
     // 2. 회전
     // 2-1. 가장 작은 정사각형 찾기
     int nn, x, y;
@@ -194,9 +172,9 @@ void dfs(int L, int sum)
         return;
     }
     
+    // 2-2. 정사각형 회전 & 내구성 감소시키기
     //cout << "square : " << nn << " : " << x << ", " << y << '\n';
     rotate(x, y, nn);
-    //print();
     dfs(L + 1, sum);
 }
 
