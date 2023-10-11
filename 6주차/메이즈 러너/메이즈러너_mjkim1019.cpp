@@ -14,16 +14,6 @@ pair<int, int> exit_pos;
 int dx[4] = {-1, 1, 0, 0};
 int dy[4] = {0, 0, -1, 1};
 
-void print(){
-    for (int i=1; i<=N; i++){
-        for (int j=1; j<=N; j++){
-            //if (exit_pos.X == i && exit_pos.Y == j) cout << "-1" << ' ';
-            cout << board[i][j] << ' ';
-        }
-        cout << '\n';
-    }
-}
-
 bool OOB(int x, int y)
 {
     if (x < 1 || x > N || y < 1 || y > N)
@@ -116,7 +106,6 @@ void dfs(int L, int sum)
     {
         if (p.X == 0 && p.Y == 0) continue; // 이미 exit
         int dist = abs(p.X - exit_pos.X) + abs(p.Y - exit_pos.Y);
-        //cout << p.X << ", " << p.Y << " dist = " << dist << '\n';
         pair<int, int> np = {0, 0};
         for (int dir = 0; dir < 4; dir++)
         {
@@ -130,7 +119,6 @@ void dfs(int L, int sum)
                 break;
             }
             int n_dist = abs(nx - exit_pos.X) + abs(ny - exit_pos.Y);
-            //cout << '\t' << nx << ", " << ny << " n_dist = " << n_dist << '\n';
             if (n_dist < dist) {
                 np = {nx, ny};
                 dist = n_dist;
@@ -173,7 +161,6 @@ void dfs(int L, int sum)
     }
     
     // 2-2. 정사각형 회전 & 내구성 감소시키기
-    //cout << "square : " << nn << " : " << x << ", " << y << '\n';
     rotate(x, y, nn);
     dfs(L + 1, sum);
 }
