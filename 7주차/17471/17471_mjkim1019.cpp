@@ -1,54 +1,76 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <algorithm>
 using namespace std;
+#define INF 0x3f3f3f3f
 
 int N;
 int people[11];
 vector<int> adj[11];
 bool vis[11];
-int answer = 100;
+int answer = INF;
 int total = 0;
 
-bool is_valid(){
-    bool check[11];
+bool is_valid(vector<int> &v, bool flag){
+    vector<bool> check(N+1, false);
 
     queue<int> Q;
-    for (int i=1; i<=N; i++) {
-        check[i] = vis[i];
-        if (Q.empty() && check[i] == false) {
-            check[i] = true;
-            Q.push(i);
-        }
-    }
-
+    check[v[0]] = true;
+    Q.push(v[0]);
+    int cnt = 1;
     while (!Q.empty()){
         int cur = Q.front(); Q.pop();
         for (int &e: adj[cur]){
-            if (check[e]) continue;
-            check[e] = true;
-            Q.push(e);
+            if (check[e] == false && vis[e] == flag) {
+                check[e] = true;
+                Q.push(e);
+                cnt++;
+            }
         }
     }
 
+    if (v.size() == cnt) return true;
+    return false;
+}
+
+bool is_two_group(){
+    vector<int> a, b;
     for (int i=1; i<=N; i++){
-        if (check[i] == false) return false;
+        if (vis[i]) a.push_back(i);
+        else b.push_back(i);
     }
+    if (a.empty() || b.empty()) return false;
+    if (is_valid(a, true) == false) return false;
+    if (is_valid(b, false) == false) return false;
+    
     return true;
 }
 
-void func(int cur, int sum) {
-    if (total != sum && is_valid()) {
-        answer = min(answer, abs(total-sum-sum));
+int cal(){
+    int sum1 = 0;
+    int sum2 = 0;
+    for (int i=1; i<=N; i++){
+        if (vis[i]) sum1 += people[i];
+        else sum2 += people[i];
     }
+    return abs(sum1 - sum2);
+}
 
-    for (int &e: adj[cur]){
-        if (vis[e]) continue;
-        vis[e] = true;
-        func(e, sum+people[e]);
-        vis[e] = false;
+void func(int L, int cur) {
+    
+    if (L >= 1 && is_two_group()) {
+        //cout << sum << " - " << total-sum << '\n';
+        answer = min(answer, cal());
     }
+    if (L == N) return;
 
+    for (int i=cur; i<N; i++){
+        if (vis[i]) continue;
+        vis[i] = true;
+        func(L+1, i+1);
+        vis[i] = false;
+    }
 }
 
 int main(){
@@ -69,13 +91,9 @@ int main(){
         }
     }
 
-    for (int i=1; i<=N; i++){
-        fill(vis, vis+N+1, false);
-        vis[i] = true;
-        func(i, 0);
-    }
+    func(0, 1);
 
-    if (answer == 100) cout << -1;
+    if (answer == INF) cout << -1;
     else cout << answer;
 
     return 0;
